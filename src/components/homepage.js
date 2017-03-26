@@ -6,7 +6,7 @@ class Homepage extends Component {
     return (
       <div className="homepage-text">
         <div className="header">
-          <h1>undertone</h1>
+          <h1 className="logo">undertone</h1>
           <h2>Classic Poetry — Now in Color</h2>
         </div>
         <div className="search"></div>
