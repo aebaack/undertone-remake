@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import '../styles/searchbar.css';
 
@@ -12,6 +13,10 @@ class SearchBar extends Component {
     this.highlightColor = this.determineHighlightColor();
 
     this.onInputChange = this.onInputChange.bind(this);
+  }
+
+  componentWillMount() {
+    
   }
 
   determineHighlightColor() {
