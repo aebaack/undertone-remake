@@ -6,9 +6,9 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: '',
       inputColor: '#fff',
-      poets: []
+      poets: [],
+      searchTerm: ''
     };
 
     this.highlightColor = this.determineHighlightColor();
@@ -16,12 +16,14 @@ class SearchBar extends Component {
     this.onInputChange = this.onInputChange.bind(this);
   }
 
+  // Fetch list of poets from poetdb
   componentWillMount() {
     axios.get('https://poetdb.herokuapp.com/author')
       .then(poets => this.setState({ poets: poets.data.authors }))
       .catch(err => this.setState({ poets: [] }));
   }
 
+  // Return hex color of input highlight on focus
   determineHighlightColor() {
     const rgbBackgroundColor = document.body.style.backgroundColor;
     const rgbValues = rgbBackgroundColor
@@ -38,6 +40,7 @@ class SearchBar extends Component {
     }
   }
 
+  // Update current search term and color of input bar
   onInputChange(event) {
     this.setState({ 
       searchTerm: event.target.value,
@@ -45,6 +48,7 @@ class SearchBar extends Component {
     });
   }
 
+  // Return JSX of poet search suggestions as user types
   returnPoetSuggestions() {
     return this.state.searchTerm.length ?
       this.state.poets
