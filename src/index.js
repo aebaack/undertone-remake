@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Homepage from './components/homepage';
-import './styles/index.css';
+import Homepage from './components/HomePage';
 
 class Index extends Component {
   componentWillMount() {
@@ -18,7 +17,7 @@ class Index extends Component {
 function determineBackgroundColor() {
   const backgroundColors = [
     '#1976D2', // blue
-    '#C62828', // red
+    '#EF6C00', // orange
     '#7E57C2', // purple
     '#00897B' // teal
   ];
