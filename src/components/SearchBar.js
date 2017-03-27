@@ -46,22 +46,19 @@ class SearchBar extends Component {
   }
 
   returnPoetSuggestions() {
-    return this.state.poets
-      .filter(poet => this.state.searchTerm.length && poet.toLowerCase().includes(this.state.searchTerm.toLowerCase()))
-      .slice(0, 3)
-      .map(poet => {
-        return (
-          <li
-            className="poet-suggestion" 
-            key={poet} 
-          >
+    return this.state.searchTerm.length ?
+      this.state.poets
+        .filter(poet => new RegExp(this.state.searchTerm, 'ig').test(poet))
+        .slice(0, 3)
+        .map(poet => (
+          <li className="poet-suggestion" key={poet}>
             <div className="poet-suggestion-left">{poet}</div>
             <div className="poet-suggestion-right">
               <i className="material-icons">keyboard_arrow_right</i>
             </div>
           </li>
-        );
-      });
+        )) :
+      <div />;
   }
 
   render() {
@@ -70,12 +67,12 @@ class SearchBar extends Component {
         <input
           autoComplete="off"
           className="searchbar"
-          onChange={this.onInputChange}
-          onFocus={() => this.setState({ inputColor: this.highlightColor })}
           onBlur={() => this.state.searchTerm === '' ? 
             this.setState({ inputColor: '#fff' }) :
             this.setState({ inputColor: this.highlightColor })  
           }
+          onChange={this.onInputChange}
+          onFocus={() => this.setState({ inputColor: this.highlightColor })}
           placeholder="Enter a Poet to Begin"
           style={{ 
             borderBottom: '2px solid ' + this.state.inputColor, 
@@ -83,9 +80,7 @@ class SearchBar extends Component {
           }}
           value={this.state.searchTerm}
         />
-        <ul className="poet-suggestion-ul">
-          {this.returnPoetSuggestions()}
-        </ul>
+        <ul className="poet-suggestion-ul">{this.returnPoetSuggestions()}</ul>
       </div>
     );
   }
