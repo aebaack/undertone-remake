@@ -10,7 +10,7 @@ class Homepage extends Component {
           <h1 className="logo">undertone</h1>
           <h2>Classic Poetry — Now in Color</h2>
         </div>
-        <div className="search">
+        <div className="search" style={{ position: 'relative', width: '75%', margin: 'auto' }}>
           <SearchBar />
         </div>
       </div>

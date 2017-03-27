@@ -7,16 +7,20 @@ class SearchBar extends Component {
     super(props);
     this.state = {
       searchTerm: '',
-      inputColor: '#fff'
+      inputColor: '#fff',
+      poets: []
     };
 
+    // this.poets = [];
     this.highlightColor = this.determineHighlightColor();
 
     this.onInputChange = this.onInputChange.bind(this);
   }
 
   componentWillMount() {
-    
+    axios.get('https://poetdb.herokuapp.com/author')
+      .then(poets => this.setState({ poets: poets.data.authors }))
+      .catch(err => this.setState({ poets: [] }));
   }
 
   determineHighlightColor() {
@@ -46,7 +50,9 @@ class SearchBar extends Component {
   }
 
   returnPoetSuggestions() {
-    return ['William Shakespeare', 'Emily Dickinson']
+    return this.state.poets
+      .filter(poet => this.state.searchTerm.length && poet.toLowerCase().includes(this.state.searchTerm.toLowerCase()))
+      .slice(0, 3)
       .map(poet => {
         return (
           <li
@@ -68,7 +74,7 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <div style={{ width: '75%', margin: 'auto' }}>
+      <div style={{ width: '100%', margin: 'auto' }}>
         <input
           autoComplete="off"
           className="searchbar"
@@ -87,6 +93,9 @@ class SearchBar extends Component {
         />
         <ul 
           style={{  
+            position: 'absolute',
+            left: 0,
+            right: 0,
             listStyleType: 'none', 
             margin: 0, 
             marginTop: 1,  
