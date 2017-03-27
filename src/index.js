@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { 
+  BrowserRouter as Router, 
+  Route
+} from 'react-router-dom';
 import Homepage from './components/HomePage';
+import PoemList from './components/PoemList';
 
 class Index extends Component {
   componentWillMount() {
@@ -9,7 +14,13 @@ class Index extends Component {
 
   render() {
     return (
-      <Homepage />
+      <Router>
+        <div>
+          <Route exact path='/' component={Homepage} />
+          <Route path='/poet/:poet' component={PoemList} />
+          {/*<Route path='/poet/:poet/poem/:poem' component={PoemAnalysis} />*/}
+        </div>
+      </Router>
     );
   }
 }

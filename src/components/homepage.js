@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import '../styles/homepage.css';
 
@@ -13,6 +14,7 @@ class Homepage extends Component {
         <div style={{ margin: 'auto', position: 'relative', width: '75%' }}>
           <SearchBar />
         </div>
+        <Link to='/poem'>Test</Link>
       </div>
     );
   }
