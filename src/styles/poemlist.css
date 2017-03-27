@@ -1,3 +1,22 @@
+.back-button {
+  color: #fff;
+  cursor: pointer;
+  font-size: 3em;
+  left: 0;
+  position: fixed;
+  top: 50%;
+  transform: translate(0, -50%);
+  user-select: none;
+}
+
+.back-button:hover {
+  color: rgba(255, 255, 255, 0.9)
+}
+
+.back-button:active {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .poem-list {
   left: 50%;
   position: fixed;

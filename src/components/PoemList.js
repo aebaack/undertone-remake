@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/poemlist.css';
 
 class PoemList extends Component {
@@ -13,10 +14,10 @@ class PoemList extends Component {
   }
 
   componentWillMount() {
-    axios.get(`https://poetdb.herokuapp.com/author/${this.props.match.params.poet}`)
-      .then(poems => this.setState({ poems: poems.data }))
-      .catch(err => this.setState({ poems: [] }))
-    // this.setState({ poems: [{title: 'Poem 1'}, {title: 'Poem 2'}] });
+    // axios.get(`https://poetdb.herokuapp.com/author/${this.props.match.params.poet}`)
+    //   .then(poems => this.setState({ poems: poems.data }))
+    //   .catch(err => this.setState({ poems: [] }))
+    this.setState({ poems: [{title: 'Poem 1'}, {title: 'Poem 2'}] });
   }
 
   formatPoemList() {
@@ -31,9 +32,14 @@ class PoemList extends Component {
 
   render() {
     return (
-      <div className="poem-list">
-        <h1 className="poet-name">{this.props.match.params.poet}</h1>
-        <ul className="poem-list-ul">{this.formatPoemList()}</ul>
+      <div>
+        <Link to='/'>
+          <i className="material-icons back-button">keyboard_arrow_left</i>
+        </Link> 
+        <div className="poem-list">
+          <h1 className="poet-name">{this.props.match.params.poet}</h1>
+          <ul className="poem-list-ul">{this.formatPoemList()}</ul>
+        </div>
       </div>
     );
   }
