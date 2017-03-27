@@ -1,0 +1,20 @@
+.homepage-text {
+  left: 50%;
+  position: fixed;
+  text-align: center;
+  top: 40%;
+  transform: translate(-50%, -50%);
+}
+
+.header {
+  color: #fff;
+  font-family: 'Open Sans';
+  font-size: 1em;
+  letter-spacing: 2px;
+}
+
+.logo {
+  font-family: 'Ubuntu';
+  font-size: 3em;
+  letter-spacing: 3px;
+}
