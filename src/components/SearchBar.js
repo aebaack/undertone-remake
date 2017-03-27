@@ -11,7 +11,6 @@ class SearchBar extends Component {
       poets: []
     };
 
-    // this.poets = [];
     this.highlightColor = this.determineHighlightColor();
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -59,13 +58,9 @@ class SearchBar extends Component {
             className="poet-suggestion" 
             key={poet} 
           >
-            <div style={{ width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-              <div style={{ textAlign: 'left', flex: 9 }}>
-                {poet}
-              </div>
-              <div className="test" style={{ textAlign: 'right', flex: 1 }}>
-                <i className="material-icons">keyboard_arrow_right</i>
-              </div>
+            <div className="poet-suggestion-left">{poet}</div>
+            <div className="poet-suggestion-right">
+              <i className="material-icons">keyboard_arrow_right</i>
             </div>
           </li>
         );
