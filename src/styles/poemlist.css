@@ -1,0 +1,74 @@
+.poem-list {
+  left: 50%;
+  position: fixed;
+  text-align: center;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+}
+
+@media (max-width: 1000px) {
+  .poem-list {
+    width: 75%;
+  }
+}
+
+@media (max-width: 600px) {
+  .poem-list {
+    width: 90%;
+  }
+}
+
+.poem-list-ul {
+  height: 45vh;
+  left: 0;
+  list-style-type: none;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  width: 100%;
+}
+
+.poem-list-li {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  font-family: 'Open Sans';
+  font-size: 1.2em;
+  padding: 8px 0 8px 4px;
+  width: 100%;
+}
+
+.poem-list-li:last-of-type {
+  border-bottom: none;
+}
+
+.poem-list-li:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.poem-info-left {
+  flex: 9;
+  padding-left: 10px;
+  text-align: left;
+}
+
+.poem-info-right {
+  flex: 1;
+  padding-right: 10px;
+  text-align: right;
+}
+
+.poet-name {
+  color: #fff;
+  font-family: 'Open Sans';
+  font-size: 3em;
+  letter-spacing: 2px;
+}
