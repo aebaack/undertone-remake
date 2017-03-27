@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/searchbar.css';
 
 class SearchBar extends Component {
@@ -55,12 +56,12 @@ class SearchBar extends Component {
         .filter(poet => new RegExp(this.state.searchTerm, 'ig').test(poet))
         .slice(0, 3)
         .map(poet => (
-          <li className="poet-suggestion" key={poet}>
-            <div className="poet-suggestion-left">{poet}</div>
-            <div className="poet-suggestion-right">
-              <i className="material-icons">keyboard_arrow_right</i>
-            </div>
-          </li>
+          <Link key={poet} style={{ textDecoration: 'none' }} to={`/poet/${poet}`}>
+            <li className="poet-suggestion">
+              <div className="poet-suggestion-left">{poet}</div>
+              <i className="material-icons poet-suggestion-right">keyboard_arrow_right</i>
+            </li>
+          </Link>
         )) :
       <div />;
   }
