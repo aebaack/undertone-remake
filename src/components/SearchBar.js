@@ -59,7 +59,7 @@ class SearchBar extends Component {
           <Link key={poet} style={{ textDecoration: 'none' }} to={`/poet/${poet}`}>
             <li className="poet-suggestion">
               <div className="poet-suggestion-left">{poet}</div>
-              <i className="material-icons poet-suggestion-right">keyboard_arrow_right</i>
+              <i className="material-icons poet-suggestion-right">chevron_right</i>
             </li>
           </Link>
         )) :

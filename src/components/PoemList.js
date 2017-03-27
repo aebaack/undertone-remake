@@ -25,7 +25,7 @@ class PoemList extends Component {
       .map(poem => (
         <li className="poem-list-li">
           <div className="poem-info-left">{poem.title}</div>
-          <i className="material-icons poem-info-right">keyboard_arrow_right</i>
+          <i className="material-icons poem-info-right">chevron_right</i>
         </li>
       ));
   }
@@ -34,7 +34,7 @@ class PoemList extends Component {
     return (
       <div>
         <Link to='/'>
-          <i className="material-icons back-button">keyboard_arrow_left</i>
+          <i className="material-icons back-button">chevron_left</i>
         </Link> 
         <div className="poem-list">
           <h1 className="poet-name">{this.props.match.params.poet}</h1>
