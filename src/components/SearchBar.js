@@ -40,10 +40,32 @@ class SearchBar extends Component {
     });
   }
 
+  returnPoetSuggestions() {
+    return ['William Shakespeare', 'Emily Dickinson']
+      .map(poet => {
+        return (
+          <li
+            className="poet-suggestion" 
+            key={poet} 
+          >
+            <div style={{ width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <div style={{ textAlign: 'left', flex: 9 }}>
+                {poet}
+              </div>
+              <div className="test" style={{ textAlign: 'right', flex: 1 }}>
+                <i className="material-icons">keyboard_arrow_right</i>
+              </div>
+            </div>
+          </li>
+        );
+      });
+  }
+
   render() {
     return (
-      <div>
+      <div style={{ width: '75%', margin: 'auto' }}>
         <input
+          autoComplete="off"
           className="searchbar"
           onChange={this.onInputChange}
           onFocus={() => this.setState({ inputColor: this.highlightColor })}
@@ -58,6 +80,15 @@ class SearchBar extends Component {
           }}
           value={this.state.searchTerm}
         />
+        <ul 
+          style={{  
+            listStyleType: 'none', 
+            margin: 0, 
+            marginTop: 1,  
+            padding: 0 }}
+        >
+          {this.returnPoetSuggestions()}
+        </ul>
       </div>
     );
   }
