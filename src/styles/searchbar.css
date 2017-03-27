@@ -1,39 +1,53 @@
+/* ---- Searchbar Input ---- */
+
 .searchbar {
-  width: 100%;
+  background-color: transparent;
+  border: none;
+  font-family: 'Open Sans';
+  font-size: 1.1em;
   height: 30px;
   margin-top: 2em;
-  padding-left: 0;
   outline: none;
-  border: none;
-  text-shadow: 0px 0px 0px #fff; /* input font color */
+  padding-left: 0;
   -webkit-text-fill-color: transparent;
-  font-size: 1.1em;
-  font-family: 'Open Sans';
   text-align: center;
-  background-color: transparent;
+  text-shadow: 0px 0px 0px #fff; /* input font color */
   transition: border 0.3s;
+  width: 100%;
 }
 
 .searchbar::placeholder {
-  text-shadow: 0px 0px 0px #E0E0E0;
+  text-shadow: 0px 0px 0px #E0E0E0; /* input placeholder font color */
 }
 
 .searchbar:focus::placeholder {
   color: transparent;
-  text-shadow: 0px 0px 0px transparent;
+  text-shadow: 0px 0px 0px transparent; /* remove placeholder text on focus */
+}
+
+/* ---- Poet Suggestions ---- */
+
+.poet-suggestion-ul {
+  left: 0;
+  list-style-type: none;
+  margin: 0;
+  margin-top: 1;
+  padding: 0;
+  position: absolute;
+  right: 0;
 }
 
 .poet-suggestion {
-  cursor: pointer;
+  align-items: center;
   background-color: rgba(255, 255, 255, 0.15);
-  font-family: 'Open Sans';
-  padding: 4px 0 4px 4px;
-  width: 100%;
-  font-size: 1.2em;
   color: #fff;
+  cursor: pointer;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  font-family: 'Open Sans';
+  font-size: 1.2em;
+  padding: 4px 0 4px 4px;
+  width: 100%;
 }
 
 .poet-suggestion:hover {
@@ -41,11 +55,11 @@
 }
 
 .poet-suggestion-left {
-  text-align: left;
   flex: 9;
+  text-align: left;
 }
 
 .poet-suggestion-right {
-  text-align: right;
   flex: 1;
+  text-align: right;
 }

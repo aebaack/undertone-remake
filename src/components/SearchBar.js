@@ -29,14 +29,11 @@ class SearchBar extends Component {
       .map(rgb => parseInt(rgb.replace(/\D/g, ''), 10));
     const greatestValue = Math.max(...rgbValues);
 
-    if (greatestValue === rgbValues[0]) {
-      // Red
+    if (greatestValue === rgbValues[0]) { // Red
       return '#1DE9B6';
-    } else if (greatestValue === rgbValues[1]) {
-      // Green
+    } else if (greatestValue === rgbValues[1]) { // Green
       return '#EF6C00';
-    } else if (greatestValue === rgbValues[2]) {
-      // Blue
+    } else if (greatestValue === rgbValues[2]) { // Blue
       return '#FF4081';
     }
   }
@@ -86,16 +83,7 @@ class SearchBar extends Component {
           }}
           value={this.state.searchTerm}
         />
-        <ul 
-          style={{  
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            listStyleType: 'none', 
-            margin: 0, 
-            marginTop: 1,  
-            padding: 0 }}
-        >
+        <ul className="poet-suggestion-ul">
           {this.returnPoetSuggestions()}
         </ul>
       </div>
