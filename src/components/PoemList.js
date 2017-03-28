@@ -5,26 +5,29 @@ import { Link } from 'react-router-dom';
 import PoemListItem from './PoemListItem';
 import '../styles/poemlist.css';
 
-class PoemList extends Component {
+export default class PoemList extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      poems: [],
-      waitedLongEnough: false
+      poems: [], // List of poems by the searched for author
+      waitedLongEnough: false // Allows search animation to appear for at least 2 seconds
     }
 
     this.formatPoemList = this.formatPoemList.bind(this);
   }
 
+  // Populate list of poems and ensure search animation lasts for at least 2 seconds
   componentWillMount() {
     axios.get(`https://poetdb.herokuapp.com/author/${this.props.match.params.poet}`)
       .then(poems => this.setState({ poems: poems.data }))
       .catch(err => this.setState({ poems: [] }));
     
     setTimeout(() => this.setState({ waitedLongEnough: true }), 2000);
-    // this.setState({ poems: [{title: 'Poem 1'}, {title: 'Poem 2'}] });
   }
 
+  // Return JSX of list of poems to display on page or displays search animation if
+  // API call has not been resolved
   formatPoemList() {
     return this.state.poems.length > 0 && this.state.waitedLongEnough ?
       this.state.poems
@@ -38,6 +41,7 @@ class PoemList extends Component {
       </div>
   }
 
+  // Render search results from poet selection
   render() {
     return (
       <div>
@@ -52,5 +56,3 @@ class PoemList extends Component {
     );
   }
 }
-
-export default PoemList;

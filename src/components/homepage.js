@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+
 import SearchBar from './SearchBar';
 import '../styles/homepage.css';
 
-class Homepage extends Component {
+export default class HomePage extends Component {
+  // Render heading and poet search bar
   render() {
     return (
       <div className="homepage-text">
@@ -17,5 +19,3 @@ class Homepage extends Component {
     );
   }
 }
-
-export default Homepage;
