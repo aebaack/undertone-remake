@@ -20,92 +20,6 @@
   transform: scale(1.3) translate(0, -37%);
 }
 
-/* Poet Heading */
-
-.poet-name {
-  color: #fff;
-  font-family: 'Open Sans';
-  font-size: 3em;
-  letter-spacing: 2px;
-}
-
-/* Poem List */
-
-.poem-list {
-  left: 50%;
-  position: fixed;
-  text-align: center;
-  top: 30%;
-  transform: translate(-50%, -50%);
-  width: 60%;
-}
-
-@media (max-width: 1000px) {
-  .poem-list {
-    width: 75%;
-  }
-}
-
-@media (max-width: 600px) {
-  .poem-list {
-    width: 80%;
-  }
-}
-
-.poem-list-div {
-  color: #fff;
-  cursor: default;
-  background-color: rgba(255, 255, 255, 0.15);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  font-family: 'Open Sans';
-}
-
-.poem-list-ul {
-  height: 45vh;
-  left: 0;
-  list-style-type: none;
-  margin: 0;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  padding: 0;
-  position: absolute;
-  right: 0;
-  width: 100%;
-}
-
-.poem-list-li {
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.15);
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  font-family: 'Open Sans';
-  font-size: 1.2em;
-  width: 100%;
-}
-
-.poem-list-li:last-of-type {
-  border-bottom: none;
-}
-
-.poem-list-li:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-}
-
-.poem-info-left {
-  flex: 9;
-  padding: 8px 0 8px 10px;
-  text-align: left;
-}
-
-.poem-info-right {
-  color: #fff;
-  flex: 1;
-  padding: 8px 10px 8px 20px;
-  text-align: right;
-  user-select: none;
-}
-
 /* ---- Loading Spinner ---- */
 /* https://github.com/tobiasahlin/SpinKit */
 
@@ -149,4 +63,86 @@
     -webkit-transform: scale(1.0);
     transform: scale(1.0);
   }
+}
+
+/* Poet Heading */
+
+.poet-name {
+  color: #fff;
+  font-family: 'Open Sans';
+  font-size: 3em;
+  letter-spacing: 2px;
+}
+
+/* Poem List */
+
+.poem-info-left {
+  flex: 9;
+  padding: 8px 0 8px 10px;
+  text-align: left;
+}
+
+.poem-info-right {
+  color: #fff;
+  flex: 1;
+  padding: 8px 10px 8px 20px;
+  text-align: right;
+  user-select: none;
+}
+
+.poem-list {
+  left: 50%;
+  position: fixed;
+  text-align: center;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+}
+
+@media (max-width: 1000px) {
+  .poem-list {
+    width: 75%;
+  }
+}
+
+@media (max-width: 600px) {
+  .poem-list {
+    width: 80%;
+  }
+}
+
+.poem-list-div {
+  color: #fff;
+  cursor: default;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  font-family: 'Open Sans';
+}
+
+.poem-list-li {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  font-family: 'Open Sans';
+  font-size: 1.2em;
+  width: 100%;
+}
+
+.poem-list-li:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.poem-list-ul {
+  height: 45vh;
+  left: 0;
+  list-style-type: none;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  width: 100%;
 }

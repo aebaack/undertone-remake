@@ -1,3 +1,43 @@
+/* ---- Poet Suggestions ---- */
+
+.poet-suggestion-left {
+  flex: 9;
+  text-align: left;
+}
+
+.poet-suggestion-li {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  font-family: 'Open Sans';
+  font-size: 1.2em;
+  padding: 4px 0 4px 4px;
+  width: 100%;
+}
+
+.poet-suggestion-li:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.poet-suggestion-right {
+  flex: 1;
+  text-align: right;
+}
+
+.poet-suggestion-ul {
+  left: 0;
+  list-style-type: none;
+  margin: 0;
+  margin-top: 1;
+  padding: 0;
+  position: absolute;
+  right: 0;
+}
+
 /* ---- Searchbar Input ---- */
 
 .searchbar {
@@ -16,51 +56,11 @@
   width: 100%;
 }
 
-.searchbar::placeholder {
-  text-shadow: 0px 0px 0px #E0E0E0; /* input placeholder font color */
-}
-
 .searchbar:focus::placeholder {
   color: transparent;
   text-shadow: 0px 0px 0px transparent; /* remove placeholder text on focus */
 }
 
-/* ---- Poet Suggestions ---- */
-
-.poet-suggestion-ul {
-  left: 0;
-  list-style-type: none;
-  margin: 0;
-  margin-top: 1;
-  padding: 0;
-  position: absolute;
-  right: 0;
-}
-
-.poet-suggestion {
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.15);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  color: #fff;
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  font-family: 'Open Sans';
-  font-size: 1.2em;
-  padding: 4px 0 4px 4px;
-  width: 100%;
-}
-
-.poet-suggestion:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-}
-
-.poet-suggestion-left {
-  flex: 9;
-  text-align: left;
-}
-
-.poet-suggestion-right {
-  flex: 1;
-  text-align: right;
+.searchbar::placeholder {
+  text-shadow: 0px 0px 0px #E0E0E0; /* input placeholder font color */
 }

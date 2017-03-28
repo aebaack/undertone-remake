@@ -60,7 +60,7 @@ export default class SearchBar extends Component {
         .slice(0, 3)
         .map(poet => (
           <Link key={poet} style={{ textDecoration: 'none' }} to={`/poet/${poet}`}>
-            <li className="poet-suggestion">
+            <li className="poet-suggestion-li">
               <div className="poet-suggestion-left">{poet}</div>
               <i className="material-icons poet-suggestion-right">chevron_right</i>
             </li>

@@ -1,16 +1,18 @@
-.homepage-text {
-  left: 50%;
-  position: fixed;
-  text-align: center;
-  top: 40%;
-  transform: translate(-50%, -50%);
-}
+/* ---- Homepage ---- */
 
 .header {
   color: #fff;
   font-family: 'Open Sans';
   font-size: 1em;
   letter-spacing: 2px;
+}
+
+.homepage-text {
+  left: 50%;
+  position: fixed;
+  text-align: center;
+  top: 40%;
+  transform: translate(-50%, -50%);
 }
 
 .logo {
