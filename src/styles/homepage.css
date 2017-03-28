@@ -8,15 +8,30 @@
 }
 
 .homepage-text {
+  animation-duration: 0.75s;
+  animation-fill-mode: both;
+  animation-name: fadeIn;
   left: 50%;
   position: fixed;
   text-align: center;
   top: 40%;
   transform: translate(-50%, -50%);
+  transition-timing-function: ease-in;
 }
 
 .logo {
   font-family: 'Ubuntu';
   font-size: 3em;
   letter-spacing: 3px;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    top: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

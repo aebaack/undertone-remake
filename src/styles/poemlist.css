@@ -91,11 +91,15 @@
 }
 
 .poem-list {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: fadeInNoMovement;
   left: 50%;
   position: fixed;
   text-align: center;
   top: 30%;
   transform: translate(-50%, -50%);
+  transition-timing-function: ease-in;
   width: 60%;
 }
 
@@ -108,6 +112,16 @@
 @media (max-width: 600px) {
   .poem-list {
     width: 80%;
+  }
+}
+
+@keyframes fadeInNoMovement {
+  0% {
+    opacity: 0.1;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 
