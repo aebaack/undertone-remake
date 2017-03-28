@@ -81,7 +81,6 @@
   flex-direction: row;
   font-family: 'Open Sans';
   font-size: 1.2em;
-  padding: 8px 0 8px 4px;
   width: 100%;
 }
 
@@ -95,14 +94,16 @@
 
 .poem-info-left {
   flex: 9;
-  padding-left: 10px;
+  padding: 8px 0 8px 10px;
   text-align: left;
 }
 
 .poem-info-right {
+  color: #fff;
   flex: 1;
-  padding-right: 10px;
+  padding: 8px 10px 8px 20px;
   text-align: right;
+  user-select: none;
 }
 
 /* ---- Loading Spinner ---- */

@@ -32,7 +32,9 @@ class PoemListItem extends Component {
           >
             {this.props.poem.title}
           </div>
-          <i className="material-icons poem-info-right">chevron_right</i>
+          <Link to={`/poet/${this.props.poem.author}/poem/${this.props.poem.title}`}>
+            <i className="material-icons poem-info-right">chevron_right</i>
+          </Link>
         </li>
         {this.returnPoemLines()}
       </div>
