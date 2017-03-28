@@ -1,22 +1,26 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import '../styles/searchbar.css';
 
-class SearchBar extends Component {
+export default class SearchBar extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      inputColor: '#fff',
-      poets: [],
-      searchTerm: ''
+      inputColor: '#fff', // Color of the text in the search bar
+      poets: [], // List of poets in PoetryDB
+      searchTerm: '' // Current value of the input field
     };
 
+    // Color of the input field on highlight (Changed based on page background color)
     this.highlightColor = this.determineHighlightColor();
 
     this.onInputChange = this.onInputChange.bind(this);
   }
 
-  // Fetch list of poets from poetdb
+  // Fetch list of poets from PoetryDB
   componentWillMount() {
     axios.get('https://poetdb.herokuapp.com/author')
       .then(poets => this.setState({ poets: poets.data.authors }))
@@ -55,16 +59,17 @@ class SearchBar extends Component {
         .filter(poet => new RegExp(this.state.searchTerm, 'ig').test(poet))
         .slice(0, 3)
         .map(poet => (
-          <li className="poet-suggestion" key={poet}>
-            <div className="poet-suggestion-left">{poet}</div>
-            <div className="poet-suggestion-right">
-              <i className="material-icons">keyboard_arrow_right</i>
-            </div>
-          </li>
+          <Link key={poet} style={{ textDecoration: 'none' }} to={`/poet/${poet}`}>
+            <li className="poet-suggestion-li">
+              <div className="poet-suggestion-left">{poet}</div>
+              <i className="material-icons poet-suggestion-right">chevron_right</i>
+            </li>
+          </Link>
         )) :
       <div />;
   }
 
+  // Render poet search bar with suggestions
   render() {
     return (
       <div style={{ width: '100%', margin: 'auto' }}>
@@ -89,5 +94,3 @@ class SearchBar extends Component {
     );
   }
 }
-
-export default SearchBar;
