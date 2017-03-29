@@ -9,10 +9,13 @@ export default class PoemAnalysis extends Component {
     super(props);
 
     this.state = {
+      currentStanza: 0,
       displayError: false,
       poem: [],
       poemAnalysis: []
     };
+
+    this.switchStanza = this.switchStanza.bind(this);
   }
 
   componentWillMount() {
@@ -45,7 +48,7 @@ export default class PoemAnalysis extends Component {
         watsonFormatted += '. ';
         currentStanzaHTML = '';
       } else {
-        currentStanzaHTML += line + '<br>';
+        currentStanzaHTML += line + '\n';
         watsonFormatted += line.replace(/[!.?]/g, ' ');
       }
     });
@@ -56,23 +59,46 @@ export default class PoemAnalysis extends Component {
     return [stanzasHTMLArr, watsonFormatted];
   }
 
+  switchStanza(direction) {
+    if (direction === 'l' && this.state.currentStanza > 0) {
+      this.setState({ currentStanza: this.state.currentStanza - 1 });
+    } else if (direction === 'r' && this.state.currentStanza < this.state.poem.length - 1){
+      this.setState({ currentStanza: this.state.currentStanza + 1 });
+    }
+  }
+
   render() {
     return (
-      <Particles style={{ left: 0, position: 'fixed', scale: 1.1, top: 0 }} params={{
-        particles: {
-          color: {
-            value: '#000'
-          },
-          line_linked: {
-            shadow: {
-              enable: true,
-              color: '#fff',
-              blur: 5
+      <div>
+        <div className="stanza">{this.state.poem[this.state.currentStanza]}</div>
+        {this.state.currentStanza !== 0 ? 
+          <i 
+            className="material-icons nav-arrow arrow-left"
+            onClick={() => this.switchStanza('l')}
+          >chevron_left</i> :
+          <div />}
+        {this.state.currentStanza !== this.state.poem.length - 1 ? 
+          <i 
+            className="material-icons nav-arrow arrow-right"
+            onClick={() => this.switchStanza('r')}
+          >chevron_right</i> :
+          <div />}
+        <Particles style={{ left: 0, position: 'fixed', scale: 1.1, top: 0 }} params={{
+          particles: {
+            color: {
+              value: '#000'
+            },
+            line_linked: {
+              shadow: {
+                enable: true,
+                color: '#fff',
+                blur: 5
+              }
             }
-          }
-        },
-        retina_detected: true
-      }}/>
+          },
+          retina_detected: true
+        }}/>
+      </div>
     );
   }
 }

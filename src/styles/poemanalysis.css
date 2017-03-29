@@ -1,3 +1,41 @@
 .transition-background {
   transition: background-color 1s ease-in;
 }
+
+.stanza {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  color: #fff;
+  font-family: 'Open Sans';
+  font-size: 1.5em;
+  left: 50%;
+  max-height: 60vh;
+  overflow: scroll;
+  padding: 2em;
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  white-space: pre-wrap;
+  z-index: 3;
+}
+
+.nav-arrow {
+  color: #fff;
+  cursor: pointer;
+  font-size: 3em;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  user-select: none;
+  z-index: 3;
+}
+
+.arrow-left {
+  left: 0;
+}
+
+.arrow-right {
+  right: 0;
+}
