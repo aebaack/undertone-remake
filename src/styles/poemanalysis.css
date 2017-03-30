@@ -1,0 +1,130 @@
+/* ---- Loading Icon ---- */
+
+.spinner-center {
+  left: 50%;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ---- Poetry Display ---- */
+
+.nav-arrow {
+  color: #fff;
+  cursor: pointer;
+  font-size: 3em;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  user-select: none;
+  z-index: 3;
+}
+
+.poem-error {
+  color: #fff;
+  font-family: 'Open Sans';
+  font-size: 2em;
+  text-align: center;
+  text-decoration: none;
+}
+
+.poet {
+  font-size: 0.5em;
+  font-style: italic;
+  margin-top: 0.3em;
+}
+
+.poet:after {
+  content: " -";
+}
+
+.poet:before {
+  content: "- ";
+}
+
+.stanza {
+  background-color: rgba(0, 0, 0, 0.75);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  color: #fff;
+  font-family: 'Libre Baskerville';
+  font-size: 1.5em;
+  left: 50%;
+  max-height: 70vh;
+  overflow: scroll;
+  padding: 1em;
+  position: fixed;
+  text-align: center;
+  top: 10%;
+  transform: translatex(-50%);
+  white-space: pre-wrap;
+  z-index: 3;
+}
+
+.stanza p {
+  letter-spacing: 1.3px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.stanza p:first-line {
+  font-variant: small-caps;
+  letter-spacing: 2px;
+}
+
+.title-description {
+  font-size: 1.2em;
+  text-transform: uppercase;
+}
+
+/* ---- Navigation ---- */
+
+.arrow-left {
+  left: 0;
+}
+
+.arrow-right {
+  right: 0;
+}
+
+.close-button {
+  color: #fff;
+  cursor: pointer;
+  font-size: 2em;
+  left: 0;
+  padding: 0.4em;
+  position: fixed;
+  top: 0;
+  user-select: none;
+  z-index: 11;
+}
+
+/* ---- Transitions and Animations ---- */
+
+.animated {
+  animation-duration: 0.75s;
+  animation-fill-mode: both;
+  animation-name: fadeInNoMovement;
+  transition-timing-function: ease-in;
+}
+
+.transition-background {
+  transition: background-color 1s ease-in;
+}
+
+.two-second {
+  animation-duration: 2s;
+}
+
+/* ---- Upper Right Tone Data ---- */
+
+.tone-data {
+  color: #fff;
+  font-family: 'Open Sans';
+  font-size: 1em;
+  padding: 0.8em;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 3;
+}

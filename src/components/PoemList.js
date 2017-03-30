@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import PoemListItem from './PoemListItem';
+
+import { determineBackgroundColor } from '../scripts/backgroundColor';
 import '../styles/poemlist.css';
 
 export default class PoemList extends Component {
@@ -19,6 +21,8 @@ export default class PoemList extends Component {
 
   // Populate list of poems and ensure search animation lasts for at least 2 seconds
   componentWillMount() {
+    determineBackgroundColor();
+
     axios.get(`https://poetdb.herokuapp.com/author/${this.props.match.params.poet}`)
       .then(poems => this.setState({ poems: poems.data }))
       .catch(err => this.setState({ poems: [] }));
