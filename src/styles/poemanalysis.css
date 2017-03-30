@@ -69,3 +69,13 @@
 .arrow-right {
   right: 0;
 }
+
+.tone-data {
+  color: #fff;
+  font-family: 'Open Sans';
+  padding: 0.8em;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 3;
+}

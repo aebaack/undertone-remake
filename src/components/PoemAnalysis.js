@@ -26,20 +26,15 @@ export default class PoemAnalysis extends Component {
       .then(poem => {
         const formattedPoem = this.formatPoemForWatsonAnalysis(poem.data[0].lines);
         this.setState({ poem: formattedPoem[0] });
-      //   axios.post('https://undertone-watson.herokuapp.com/', {text: formattedPoem[1]})
-      //     .then(watsonAnalysis => {
-      //       this.setState({ poemAnalysis: watsonAnalysis.data.sentences_tone });
-      //       const mainDocumentTone = watsonAnalysis.data.document_tone.tone_categories[0].tones
-      //         .reduce((mainTone, currentTone) => {
-      //           if (currentTone.score > mainTone[0]) {
-      //             [mainTone[0], mainTone[1]] = [currentTone.score, currentTone.tone_id];
-      //           }
-      //           return mainTone;
-      //         }, [0, '']);
-      //       this.setState({ documentTone: mainDocumentTone[1] });
-      //     })
-      //     .catch(err => this.setState({ displayError: true }));
-        this.setState({ documentTone: 'fear' });
+        axios.post('https://undertone-watson.herokuapp.com/', {text: formattedPoem[1]})
+          .then(watsonAnalysis => {
+            this.setState({
+              documentTone: this.determineMainTone(watsonAnalysis.data.document_tone.tone_categories[0].tones),
+              poemAnalysis: watsonAnalysis.data.sentences_tone 
+            });
+          })
+          .catch(err => this.setState({ displayError: true }));
+        // this.setState({ documentTone: 'anger' })
       })
       .catch(err => this.setState({ poems: [] }));
   }
@@ -48,8 +43,14 @@ export default class PoemAnalysis extends Component {
     setTimeout(() => document.body.classList.add('transition-background'), 100);
   }
 
+  capitalizeFirstLetter(str) {
+    if (typeof str === 'string' && str.length > 0) {
+      return str.charAt().toUpperCase() + str.substr(1);
+    }
+  }
+
   determineBackgroundColor() {
-    switch(this.state.documentTone) {
+    switch(this.returnCurrentStanzaTone()) {
       case 'anger':
         return '#C62828';
       case 'disgust':
@@ -63,6 +64,16 @@ export default class PoemAnalysis extends Component {
       default:
         return '#00838F';
     }
+  }
+
+  determineMainTone(toneArray) {
+    return toneArray
+      .reduce((mainTone, currentTone) => {
+        if (currentTone.score > mainTone[0]) {
+          [mainTone[0], mainTone[1]] = [currentTone.score, currentTone.tone_id];
+        }
+        return mainTone;
+      }, [0, ''])[1];
   }
 
   formatPoemForWatsonAnalysis(poemLines) {
@@ -87,9 +98,19 @@ export default class PoemAnalysis extends Component {
     return [stanzasHTMLArr, watsonFormatted];
   }
 
+  returnCurrentStanzaTone() {
+    if (this.state.poemAnalysis.length !== 0) {
+      const currentToneArr = this.state.poemAnalysis[this.state.currentStanza]
+        .tone_categories[0].tones;
+      return this.determineMainTone(currentToneArr);
+    }
+  }
+
   returnParticleJSX() {
     if (this.state.documentTone !== '') {
-      document.body.style.backgroundColor = this.determineBackgroundColor();
+      if (this.state.poemAnalysis.length !== 0) {
+        document.body.style.backgroundColor = this.determineBackgroundColor();
+      }
       return (
         <Particles 
           style={{ 
@@ -131,27 +152,34 @@ export default class PoemAnalysis extends Component {
   render() {
     return (
       <div>
-        {this.state.currentStanza !== 0 ? 
+        {this.state.currentStanza !== 0 && this.state.documentTone ? 
           <i 
             className="material-icons nav-arrow arrow-left"
             onClick={() => this.switchStanza('l')}
           >chevron_left</i> :
           <div />}
-        {this.state.currentStanza !== this.state.poem.length - 1 ? 
+        {this.state.currentStanza !== this.state.poem.length - 1 && this.state.documentTone ? 
           <i 
             className="material-icons nav-arrow arrow-right"
             onClick={() => this.switchStanza('r')}
           >chevron_right</i> :
           <div />}
-        {this.state.documentTone !== '' ? 
-          <div className="stanza">
-            <div className="title-description">
-              {this.props.match.params.poem}<br />
-              <div className="poet">{this.props.match.params.poet}</div>
+        {this.state.documentTone !== '' ?
+          <div> 
+            <div className="tone-data">
+              Overall: {this.capitalizeFirstLetter(this.state.documentTone)}
               <br />
+              Stanza: {this.capitalizeFirstLetter(this.returnCurrentStanzaTone())}
             </div>
-            <p>
-            {this.state.poem[this.state.currentStanza]}</p>
+            <div className="stanza">
+              <div className="title-description">
+                {this.props.match.params.poem}<br />
+                <div className="poet">{this.props.match.params.poet}</div>
+                <br />
+              </div>
+              <p>
+              {this.state.poem[this.state.currentStanza]}</p>
+            </div>
           </div> :
           <div />}
         {this.returnParticleJSX()}
