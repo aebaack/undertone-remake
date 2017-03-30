@@ -19,6 +19,7 @@ export default class PoemAnalysis extends Component {
     };
 
     this.determineBackgroundColor = this.determineBackgroundColor.bind(this);
+    this.returnNavArrowJSX = this.returnNavArrowJSX.bind(this);
     this.returnParticleJSX = this.returnParticleJSX.bind(this);
     this.switchStanza = this.switchStanza.bind(this);
   }
@@ -28,17 +29,17 @@ export default class PoemAnalysis extends Component {
       .then(poem => {
         const formattedPoem = this.formatPoemForWatsonAnalysis(poem.data[0].lines);
         this.setState({ poem: formattedPoem[0] });
-        axios.post('https://undertone-watson.herokuapp.com/', {text: formattedPoem[1]})
-          .then(watsonAnalysis => {
-            this.setState({
-              documentTone: this.determineMainTone(watsonAnalysis.data.document_tone.tone_categories[0].tones),
-              poemAnalysis: watsonAnalysis.data.sentences_tone 
-            });
-          })
-          .catch(err => this.setState({ displayError: true }));
-        // this.setState({ documentTone: 'anger' })
+        // axios.post('https://undertone-watson.herokuapp.com/', {text: formattedPoem[1]})
+        //   .then(watsonAnalysis => {
+        //     this.setState({
+        //       documentTone: this.determineMainTone(watsonAnalysis.data.document_tone.tone_categories[0].tones),
+        //       poemAnalysis: watsonAnalysis.data.sentences_tone 
+        //     });
+        //   })
+        //   .catch(err => this.setState({ displayError: true }));
+        this.setState({ documentTone: 'anger' })
       })
-      .catch(err => this.setState({ poems: [] }));
+      .catch(err => this.setState({ displayError: true }));
   }
 
   componentDidMount() {
@@ -108,6 +109,21 @@ export default class PoemAnalysis extends Component {
     }
   }
 
+  returnNavArrowJSX(direction) {
+    if (this.state.documentTone) {
+      const arrowElement = <i 
+          className={`material-icons nav-arrow arrow-${direction}`}
+          onClick={() => this.switchStanza(direction.charAt())}
+        >{`chevron_${direction}`}</i>;
+
+      const arrowDisplayCondition = direction === 'left' ?
+        this.state.currentStanza !== 0 :
+        this.state.currentStanza !== this.state.poem.length - 1;
+
+      return arrowDisplayCondition ? arrowElement : <div />
+    }
+  }
+
   returnParticleJSX() {
     if (this.state.documentTone !== '') {
       if (this.state.poemAnalysis.length !== 0) {
@@ -143,18 +159,8 @@ export default class PoemAnalysis extends Component {
   render() {
     return (
       <div>
-        {this.state.currentStanza !== 0 && this.state.documentTone ? 
-          <i 
-            className="material-icons nav-arrow arrow-left"
-            onClick={() => this.switchStanza('l')}
-          >chevron_left</i> :
-          <div />}
-        {this.state.currentStanza !== this.state.poem.length - 1 && this.state.documentTone ? 
-          <i 
-            className="material-icons nav-arrow arrow-right"
-            onClick={() => this.switchStanza('r')}
-          >chevron_right</i> :
-          <div />}
+        {this.returnNavArrowJSX('left')}
+        {this.returnNavArrowJSX('right')}
         {this.state.documentTone !== '' ? 
           <Link to={`/poet/${this.props.match.params.poet}`}>
             <i 
