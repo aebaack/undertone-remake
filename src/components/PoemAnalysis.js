@@ -11,11 +11,11 @@ export default class PoemAnalysis extends Component {
     super(props);
 
     this.state = {
-      currentStanza: 0,
-      displayError: false,
-      documentTone: '',
-      poem: [],
-      poemAnalysis: []
+      currentStanza: 0, // Current location in the poem array
+      displayError: false, // Display an error if true
+      documentTone: '', // Tone of the entire poem
+      poem: [], // Formatted array of poem stanzas
+      poemAnalysis: [] // Watson poem analysis
     };
 
     this.determineBackgroundColor = this.determineBackgroundColor.bind(this);
@@ -24,6 +24,7 @@ export default class PoemAnalysis extends Component {
     this.switchStanza = this.switchStanza.bind(this);
   }
 
+  // Grab poem from poetryDB and send to IBM Watson API for tone analysis
   componentWillMount() {
     axios.get(`https://poetdb.herokuapp.com/title,author/${this.props.match.params.poem};${this.props.match.params.poet}`)
       .then(poem => {
@@ -44,16 +45,19 @@ export default class PoemAnalysis extends Component {
       .catch(err => this.setState({ displayError: true }));
   }
 
+  // Add background color transition class to body
   componentDidMount() {
     setTimeout(() => document.body.classList.add('transition-background'), 100);
   }
 
+  // Capitalize the first letter of the string
   capitalizeFirstLetter(str) {
     if (typeof str === 'string' && str.length > 0) {
       return str.charAt().toUpperCase() + str.substr(1);
     }
   }
 
+  // Determine the new background color based on the current stanza tone
   determineBackgroundColor() {
     switch(this.returnCurrentStanzaTone()) {
       case 'anger': // red
@@ -71,6 +75,7 @@ export default class PoemAnalysis extends Component {
     }
   }
 
+  // Determine the main tone given Watson tone array
   determineMainTone(toneArray) {
     return toneArray
       .reduce((mainTone, currentTone) => {
@@ -81,6 +86,7 @@ export default class PoemAnalysis extends Component {
       }, [0, ''])[1];
   }
 
+  // Format poem data for analysis by Watson
   formatPoemForWatsonAnalysis(poemLines) {
     const stanzasHTMLArr = [];
     let currentStanzaHTML = '';
@@ -103,6 +109,7 @@ export default class PoemAnalysis extends Component {
     return [stanzasHTMLArr, watsonFormatted];
   }
 
+  // Return the current tone of the stanza displayed on screen
   returnCurrentStanzaTone() {
     if (this.state.poemAnalysis && this.state.poemAnalysis.length !== 0) {
       const currentToneArr = this.state.poemAnalysis[this.state.currentStanza]
@@ -111,8 +118,9 @@ export default class PoemAnalysis extends Component {
     }
   }
 
+  // Return left and right navigation arrow JSX
   returnNavArrowJSX(direction) {
-    const arrowElement = <i 
+    const arrowElement = <i
         className={`material-icons nav-arrow arrow-${direction}`}
         onClick={() => this.switchStanza(direction.charAt())}
       >{`chevron_${direction}`}</i>;
@@ -124,6 +132,7 @@ export default class PoemAnalysis extends Component {
     return arrowDisplayCondition ? arrowElement : <div />
   }
 
+  // Return JSX for the particles in the background
   returnParticleJSX() {
     if (this.state.poemAnalysis && this.state.poemAnalysis.length !== 0) {
       document.body.style.backgroundColor = this.determineBackgroundColor();
@@ -144,6 +153,7 @@ export default class PoemAnalysis extends Component {
     );
   }
 
+  // Switch the currently displayed stanza
   switchStanza(direction) {
     if (direction === 'l' && this.state.currentStanza > 0) {
       this.setState({ currentStanza: this.state.currentStanza - 1 });
@@ -152,6 +162,7 @@ export default class PoemAnalysis extends Component {
     }
   }
 
+  // Render poem stanza-by-stanza with tone analysis data
   render() {
     return this.state.documentTone !== '' ?
       <div> 
