@@ -100,6 +100,7 @@
 }
 
 .close-button {
+  user-select: none;
   color: #fff;
   cursor: pointer;
   font-size: 2em;
@@ -108,4 +109,12 @@
   left: 0;
   padding: 0.4em;
   z-index: 11;
+}
+
+.poem-error {
+  color: #fff;
+  text-align: center;
+  font-size: 2em;
+  font-family: 'Open Sans';
+  text-decoration: none;
 }

@@ -27,17 +27,19 @@ export default class PoemAnalysis extends Component {
   componentWillMount() {
     axios.get(`https://poetdb.herokuapp.com/title,author/${this.props.match.params.poem};${this.props.match.params.poet}`)
       .then(poem => {
+
         const formattedPoem = this.formatPoemForWatsonAnalysis(poem.data[0].lines);
         this.setState({ poem: formattedPoem[0] });
-        // axios.post('https://undertone-watson.herokuapp.com/', {text: formattedPoem[1]})
-        //   .then(watsonAnalysis => {
-        //     this.setState({
-        //       documentTone: this.determineMainTone(watsonAnalysis.data.document_tone.tone_categories[0].tones),
-        //       poemAnalysis: watsonAnalysis.data.sentences_tone 
-        //     });
-        //   })
-        //   .catch(err => this.setState({ displayError: true }));
-        this.setState({ documentTone: 'anger' })
+
+        axios.post('https://undertone-watson.herokuapp.com/', { text: formattedPoem[1] })
+          .then(watsonAnalysis => {
+
+            this.setState({
+              documentTone: this.determineMainTone(watsonAnalysis.data.document_tone.tone_categories[0].tones),
+              poemAnalysis: watsonAnalysis.data.sentences_tone 
+            });
+          })
+          .catch(err => this.setState({ displayError: true }));
       })
       .catch(err => this.setState({ displayError: true }));
   }
@@ -54,17 +56,17 @@ export default class PoemAnalysis extends Component {
 
   determineBackgroundColor() {
     switch(this.returnCurrentStanzaTone()) {
-      case 'anger':
+      case 'anger': // red
         return '#C62828';
-      case 'disgust':
+      case 'disgust': // green
         return '#827717';
-      case 'joy':
+      case 'joy': // orange
         return '#F9A825';
-      case 'sadness':
+      case 'sadness': // blue
         return '#1A237E';
-      case 'fear':
+      case 'fear': // gray
         return '#263238';
-      default:
+      default: // blue
         return '#00838F';
     }
   }
@@ -102,7 +104,7 @@ export default class PoemAnalysis extends Component {
   }
 
   returnCurrentStanzaTone() {
-    if (this.state.poemAnalysis.length !== 0) {
+    if (this.state.poemAnalysis && this.state.poemAnalysis.length !== 0) {
       const currentToneArr = this.state.poemAnalysis[this.state.currentStanza]
         .tone_categories[0].tones;
       return this.determineMainTone(currentToneArr);
@@ -110,42 +112,36 @@ export default class PoemAnalysis extends Component {
   }
 
   returnNavArrowJSX(direction) {
-    if (this.state.documentTone) {
-      const arrowElement = <i 
-          className={`material-icons nav-arrow arrow-${direction}`}
-          onClick={() => this.switchStanza(direction.charAt())}
-        >{`chevron_${direction}`}</i>;
+    const arrowElement = <i 
+        className={`material-icons nav-arrow arrow-${direction}`}
+        onClick={() => this.switchStanza(direction.charAt())}
+      >{`chevron_${direction}`}</i>;
 
-      const arrowDisplayCondition = direction === 'left' ?
-        this.state.currentStanza !== 0 :
-        this.state.currentStanza !== this.state.poem.length - 1;
+    const arrowDisplayCondition = direction === 'left' ?
+      this.state.currentStanza !== 0 :
+      this.state.currentStanza !== this.state.poem.length - 1;
 
-      return arrowDisplayCondition ? arrowElement : <div />
-    }
+    return arrowDisplayCondition ? arrowElement : <div />
   }
 
   returnParticleJSX() {
-    if (this.state.documentTone !== '') {
-      if (this.state.poemAnalysis.length !== 0) {
-        document.body.style.backgroundColor = this.determineBackgroundColor();
-      }
-
-      const particleConfiguration = returnParticleConfiguration();
-      particleConfiguration.retina_detected = true;
-      return (
-        <Particles 
-          style={{ 
-            left: 0, 
-            position: 'fixed', 
-            // transform: 'scale(1.1)', add this to remove clipping effect with bubble particles
-            top: 0
-          }} 
-          params={particleConfiguration}
-        />
-      );
-    } else {
-      return <div />
+    if (this.state.poemAnalysis && this.state.poemAnalysis.length !== 0) {
+      document.body.style.backgroundColor = this.determineBackgroundColor();
     }
+
+    const particleConfiguration = returnParticleConfiguration();
+    particleConfiguration.retina_detected = true;
+    return (
+      <Particles 
+        style={{ 
+          left: 0, 
+          position: 'fixed', 
+          // transform: 'scale(1.1)', add this to remove clipping effect with bubble particles
+          top: 0
+        }} 
+        params={particleConfiguration}
+      />
+    );
   }
 
   switchStanza(direction) {
@@ -157,44 +153,48 @@ export default class PoemAnalysis extends Component {
   }
 
   render() {
-    return (
-      <div>
+    return this.state.documentTone !== '' ?
+      <div> 
+        {/* Particles */}
+        {this.returnParticleJSX()}
+
+        {/* Navigation */}
         {this.returnNavArrowJSX('left')}
         {this.returnNavArrowJSX('right')}
-        {this.state.documentTone !== '' ? 
-          <Link to={`/poet/${this.props.match.params.poet}`}>
-            <i 
-              className="material-icons close-button"
-              onClick={() => console.log('ran')}
-            >close</i>
-          </Link> :
-          <div />}
-        {this.state.documentTone !== '' ?
-          <div> 
-            <div className="tone-data">
-              Overall: {this.capitalizeFirstLetter(this.state.documentTone)}
-              <br />
-              Stanza: {this.capitalizeFirstLetter(this.returnCurrentStanzaTone())}
-            </div>
-            <div className="animated two-second stanza">
-              <div className="title-description">
-                {this.props.match.params.poem}<br />
-                <div className="poet">{this.props.match.params.poet}</div>
-                <br />
-              </div>
-              <p>
-              {this.state.poem[this.state.currentStanza]}</p>
-            </div>
+        <Link to={`/poet/${this.props.match.params.poet}`}>
+          <i className="material-icons close-button">close</i>
+        </Link>
+
+        {/* Upper Right Tone Data */}
+        <div className="tone-data">
+          Overall: {this.capitalizeFirstLetter(this.state.documentTone)}
+          <br />
+          Stanza: {this.capitalizeFirstLetter(this.returnCurrentStanzaTone())}
+        </div>
+
+        {/* Poem Stanzas */}
+        <div className="animated two-second stanza">
+          <div className="title-description">
+            {this.props.match.params.poem}<br />
+            <div className="poet">{this.props.match.params.poet}</div>
+            <br />
+          </div>
+          <p>{this.state.poem[this.state.currentStanza]}</p>
+        </div>
+      </div> :
+      // Loading Animation
+      <div className="animated spinner-center">
+        {!this.state.displayError ? 
+          <div className="spinner">
+            <div className="bounce1"></div>
+            <div className="bounce2"></div>
+            <div className="bounce3"></div>
           </div> :
-          <div className="animated spinner-center">
-            <div className="spinner">
-              <div className="bounce1"></div>
-              <div className="bounce2"></div>
-              <div className="bounce3"></div>
-            </div>
+          <div style={{ textAlign: 'center' }}>
+            <Link className="poem-error" to={`/poet/${this.props.match.params.poet}`}>
+              An Error Occured — Press Here to Go Back and Select a Different Poem
+            </Link>
           </div>}
-        {this.returnParticleJSX()}
-      </div>
-    );
+      </div>;
   }
 }
