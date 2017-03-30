@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Particles from 'react-particles-js';
 import { Link } from 'react-router-dom';
 
+import { returnParticleConfiguration } from '../scripts/particleConfiguration';
 import '../styles/poemanalysis.css';
 
 export default class PoemAnalysis extends Component {
@@ -27,15 +28,15 @@ export default class PoemAnalysis extends Component {
       .then(poem => {
         const formattedPoem = this.formatPoemForWatsonAnalysis(poem.data[0].lines);
         this.setState({ poem: formattedPoem[0] });
-        // axios.post('https://undertone-watson.herokuapp.com/', {text: formattedPoem[1]})
-        //   .then(watsonAnalysis => {
-        //     this.setState({
-        //       documentTone: this.determineMainTone(watsonAnalysis.data.document_tone.tone_categories[0].tones),
-        //       poemAnalysis: watsonAnalysis.data.sentences_tone 
-        //     });
-        //   })
-        //   .catch(err => this.setState({ displayError: true }));
-        this.setState({ documentTone: 'anger' })
+        axios.post('https://undertone-watson.herokuapp.com/', {text: formattedPoem[1]})
+          .then(watsonAnalysis => {
+            this.setState({
+              documentTone: this.determineMainTone(watsonAnalysis.data.document_tone.tone_categories[0].tones),
+              poemAnalysis: watsonAnalysis.data.sentences_tone 
+            });
+          })
+          .catch(err => this.setState({ displayError: true }));
+        // this.setState({ documentTone: 'anger' })
       })
       .catch(err => this.setState({ poems: [] }));
   }
@@ -112,29 +113,18 @@ export default class PoemAnalysis extends Component {
       if (this.state.poemAnalysis.length !== 0) {
         document.body.style.backgroundColor = this.determineBackgroundColor();
       }
+
+      const particleConfiguration = returnParticleConfiguration();
+      particleConfiguration.retina_detected = true;
       return (
         <Particles 
           style={{ 
             left: 0, 
             position: 'fixed', 
-            scale: 1.1, 
-            top: 0 
+            // transform: 'scale(1.1)', add this to remove clipping effect with bubble particles
+            top: 0
           }} 
-          params={{
-            particles: {
-              color: {
-                value: '#000'
-              },
-              line_linked: {
-                shadow: {
-                  enable: true,
-                  color: '#fff',
-                  blur: 5
-                }
-              }
-            },
-            retina_detected: true
-          }}
+          params={particleConfiguration}
         />
       );
     } else {
@@ -174,13 +164,13 @@ export default class PoemAnalysis extends Component {
           </Link> :
           <div />}
         {this.state.documentTone !== '' ?
-          <div className="animated two-second"> 
+          <div> 
             <div className="tone-data">
               Overall: {this.capitalizeFirstLetter(this.state.documentTone)}
               <br />
               Stanza: {this.capitalizeFirstLetter(this.returnCurrentStanzaTone())}
             </div>
-            <div className="stanza">
+            <div className="animated two-second stanza">
               <div className="title-description">
                 {this.props.match.params.poem}<br />
                 <div className="poet">{this.props.match.params.poet}</div>
