@@ -70,7 +70,15 @@ export default class PoemAnalysis extends Component {
   render() {
     return (
       <div>
-        <div className="stanza">{this.state.poem[this.state.currentStanza]}</div>
+        <div className="stanza">
+          <div className="title-description">
+            {this.props.match.params.poem}<br />
+            <div className="poet">{this.props.match.params.poet}</div>
+            <br />
+          </div>
+          <p>
+          {this.state.poem[this.state.currentStanza]}</p>
+        </div>
         {this.state.currentStanza !== 0 ? 
           <i 
             className="material-icons nav-arrow arrow-left"

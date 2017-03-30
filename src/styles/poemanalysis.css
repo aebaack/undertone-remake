@@ -2,21 +2,26 @@
   transition: background-color 1s ease-in;
 }
 
+.title-description {
+  font-size: 1.2em;
+  text-transform: uppercase;
+}
+
 .stanza {
   background-color: rgba(0, 0, 0, 0.6);
   border: 2px solid rgba(255, 255, 255, 0.8);
   border-radius: 20px;
   color: #fff;
-  font-family: 'Open Sans';
+  font-family: 'Libre Baskerville';
   font-size: 1.5em;
   left: 50%;
-  max-height: 60vh;
+  max-height: 70vh;
   overflow: scroll;
-  padding: 2em;
+  padding: 1em;
   position: fixed;
   text-align: center;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: 10%;
+  transform: translatex(-50%);
   white-space: pre-wrap;
   z-index: 3;
 }
@@ -30,6 +35,31 @@
   transform: translateY(-50%);
   user-select: none;
   z-index: 3;
+}
+
+.poet {
+  font-size: 0.5em;
+  font-style: italic;
+  margin-top: 0.3em;
+}
+
+.poet:before {
+  content: "- ";
+}
+
+.poet:after {
+  content: " -";
+}
+
+.stanza p {
+  margin: 0;
+  letter-spacing: 1.3px;
+  line-height: 1.5;
+}
+
+.stanza p:first-line {
+  font-variant: small-caps;
+  letter-spacing: 2px;
 }
 
 .arrow-left {
