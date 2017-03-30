@@ -26,15 +26,15 @@ export default class PoemAnalysis extends Component {
       .then(poem => {
         const formattedPoem = this.formatPoemForWatsonAnalysis(poem.data[0].lines);
         this.setState({ poem: formattedPoem[0] });
-        axios.post('https://undertone-watson.herokuapp.com/', {text: formattedPoem[1]})
-          .then(watsonAnalysis => {
-            this.setState({
-              documentTone: this.determineMainTone(watsonAnalysis.data.document_tone.tone_categories[0].tones),
-              poemAnalysis: watsonAnalysis.data.sentences_tone 
-            });
-          })
-          .catch(err => this.setState({ displayError: true }));
-        // this.setState({ documentTone: 'anger' })
+        // axios.post('https://undertone-watson.herokuapp.com/', {text: formattedPoem[1]})
+        //   .then(watsonAnalysis => {
+        //     this.setState({
+        //       documentTone: this.determineMainTone(watsonAnalysis.data.document_tone.tone_categories[0].tones),
+        //       poemAnalysis: watsonAnalysis.data.sentences_tone 
+        //     });
+        //   })
+        //   .catch(err => this.setState({ displayError: true }));
+        this.setState({ documentTone: 'anger' })
       })
       .catch(err => this.setState({ poems: [] }));
   }
@@ -165,7 +165,7 @@ export default class PoemAnalysis extends Component {
           >chevron_right</i> :
           <div />}
         {this.state.documentTone !== '' ?
-          <div> 
+          <div className="animated two-second"> 
             <div className="tone-data">
               Overall: {this.capitalizeFirstLetter(this.state.documentTone)}
               <br />
@@ -181,7 +181,13 @@ export default class PoemAnalysis extends Component {
               {this.state.poem[this.state.currentStanza]}</p>
             </div>
           </div> :
-          <div />}
+          <div className="animated spinner-center">
+            <div className="spinner">
+              <div className="bounce1"></div>
+              <div className="bounce2"></div>
+              <div className="bounce3"></div>
+            </div>
+          </div>}
         {this.returnParticleJSX()}
       </div>
     );
