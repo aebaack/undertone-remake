@@ -1,6 +1,7 @@
 import axios from 'axios';
-import Particles from 'react-particles-js';
 import React, { Component } from 'react';
+import Particles from 'react-particles-js';
+import { Link } from 'react-router-dom';
 
 import '../styles/poemanalysis.css';
 
@@ -163,6 +164,14 @@ export default class PoemAnalysis extends Component {
             className="material-icons nav-arrow arrow-right"
             onClick={() => this.switchStanza('r')}
           >chevron_right</i> :
+          <div />}
+        {this.state.documentTone !== '' ? 
+          <Link to={`/poet/${this.props.match.params.poet}`}>
+            <i 
+              className="material-icons close-button"
+              onClick={() => console.log('ran')}
+            >close</i>
+          </Link> :
           <div />}
         {this.state.documentTone !== '' ?
           <div className="animated two-second"> 
