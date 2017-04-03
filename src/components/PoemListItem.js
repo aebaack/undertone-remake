@@ -21,7 +21,7 @@ export default class PoemListItem extends Component {
     return this.state.poemVisible ?
       <div style={{ paddingBottom: '15px', paddingTop: '15px' }}>
         {this.props.poem.lines
-          .map(line => <p style={{ margin: '1px 0 3px 0' }}>{line || '\xa0'}</p>) } 
+          .map((line, i) => <p key={i} style={{ margin: '1px 0 3px 0' }}>{line || '\xa0'}</p>) } 
       </div> :
       <div />
   }

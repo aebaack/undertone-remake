@@ -35,8 +35,8 @@ export default class PoemList extends Component {
   formatPoemList() {
     return this.state.poems.length > 0 && this.state.waitedLongEnough ?
       this.state.poems
-        .map(poem => (
-          <PoemListItem key={poem.title} poem={poem} />
+        .map((poem, i) => (
+          <PoemListItem key={i} poem={poem} />
         )) :
       <div className="spinner">
         <div className="bounce1"></div>
