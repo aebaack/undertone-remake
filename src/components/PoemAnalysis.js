@@ -19,13 +19,17 @@ export default class PoemAnalysis extends Component {
     };
 
     this.determineBackgroundColor = this.determineBackgroundColor.bind(this);
+    this.keyboardNavigation = this.keyboardNavigation.bind(this);
     this.returnNavArrowJSX = this.returnNavArrowJSX.bind(this);
     this.returnParticleJSX = this.returnParticleJSX.bind(this);
     this.switchStanza = this.switchStanza.bind(this);
   }
 
+  // Add arrow key event for switching between stanzas
   // Grab poem from poetryDB and send to IBM Watson API for tone analysis
   componentWillMount() {
+    document.body.addEventListener('keydown', this.keyboardNavigation);
+
     axios.get(`https://poetdb.herokuapp.com/title,author/${this.props.match.params.poem};${this.props.match.params.poet}`)
       .then(poem => {
 
@@ -48,6 +52,11 @@ export default class PoemAnalysis extends Component {
   // Add background color transition class to body
   componentDidMount() {
     setTimeout(() => document.body.classList.add('transition-background'), 100);
+  }
+
+  // Remove keyboard navigation
+  componentWillUnmount() {
+    document.body.removeEventListener('keydown', this.keyboardNavigation);
   }
 
   // Capitalize the first letter of the string
@@ -107,6 +116,14 @@ export default class PoemAnalysis extends Component {
     watsonFormatted += '.';
 
     return [stanzasHTMLArr, watsonFormatted];
+  }
+
+  keyboardNavigation(event) {
+    if (event.code === 'ArrowLeft') {
+      this.switchStanza('l');
+    } else if (event.code === 'ArrowRight') {
+      this.switchStanza('r');
+    }
   }
 
   // Return the current tone of the stanza displayed on screen
