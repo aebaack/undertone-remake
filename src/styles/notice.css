@@ -1,0 +1,13 @@
+.notice {
+  bottom: 0;
+  color: white;
+  font-family: 'Open Sans';
+  padding: 10px;
+  position: fixed;
+  right: 0;
+  vertical-align: middle;
+}
+
+.notice img {
+  width: 20px;
+}
