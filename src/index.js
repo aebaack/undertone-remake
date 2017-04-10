@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 
 import HomePage from './components/HomePage';
+import Notice from './components/Notice';
 import PoemAnalysis from './components/PoemAnalysis';
 import PoemList from './components/PoemList';
 
@@ -22,6 +23,7 @@ class Index extends Component {
     return (
       <Router>
         <div>
+          <Notice />
           <Route exact path='/' component={HomePage} />
           <Route exact path='/poet/:poet/poem/:poem' component={PoemAnalysis} />
           <Route exact path='/poet/:poet' component={PoemList} />
